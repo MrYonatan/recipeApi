@@ -40,6 +40,16 @@ class Comment(models.Model):
     
     def __str__(self):
         return (self.name[:20])
+
+class Favorite(models.Model):
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['created_by', 'recipe']
     
+    def __str__(self):
+        return f"{self.created_by.username} - {self.recipe.name}"
+
 # Dont forget to add notifications model someday 
-    
+
